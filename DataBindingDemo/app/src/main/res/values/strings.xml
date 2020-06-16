@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">DataBindingDemo</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="id">ID :</string>
+    <string name="name">name</string>
+    <string name="add">添加元素</string>
+    <string name="blog">blog</string>
 </resources>
