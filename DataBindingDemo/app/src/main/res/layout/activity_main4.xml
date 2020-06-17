@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="goods"
+            type="com.example.databindingdemo.model.ObservableGoods" />
+
+        <variable
+            name="handler"
+            type="com.example.databindingdemo.Main4Activity.ObservableGoodsHandler" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/name"/>
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextStyle"
+                android:text="@{goods.name}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/details"/>
+            <TextView
+                android:id="@+id/details"
+                style="@style/TextStyle"
+                android:text="@{goods.details}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/price"/>
+            <TextView
+                android:id="@+id/price"
+                style="@style/TextStyle"
+                android:text="@{String.valueOf(goods.price)}"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/change"
+            style="@style/ButtonStyle"
+            android:text="@string/change"
+            android:onClick="@{()->handler.change()}"/>
+
+    </LinearLayout>
+</layout>

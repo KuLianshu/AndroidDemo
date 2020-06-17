@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="com.example.databindingdemo.utils.StringUtils"/>
+        <variable
+            name="handler"
+            type="com.example.databindingdemo.Main8Activity.StringHandler" />
+        <variable
+            name="userInfo"
+            type="com.example.databindingdemo.model.User" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TextStyle"
+            android:onClick="@{()->handler.onUserNameClick(userInfo)}"
+            android:text="@{StringUtils.toUpperCase(userInfo.name)}"/>
+
+    </LinearLayout>
+</layout>

@@ -5,4 +5,12 @@
     <string name="name">name</string>
     <string name="add">添加元素</string>
     <string name="blog">blog</string>
+    <string name="details">details</string>
+    <string name="price">price</string>
+    <string name="change_name_and_price">改变属性 name 和 price</string>
+    <string name="change_details_and_price">改变属性 details 和 price</string>
+    <string name="change">改变属性</string>
+    <string name="change_data">改变数据</string>
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
 </resources>

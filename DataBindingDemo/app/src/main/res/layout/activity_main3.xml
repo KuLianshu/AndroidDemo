@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="goods"
+            type="com.example.databindingdemo.model.Goods" />
+        <variable
+            name="goodsHandler"
+            type="com.example.databindingdemo.Main3Activity.GoodsHandler" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/name"/>
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextStyle"
+                android:text="@{goods.name}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/details"/>
+            <TextView
+                android:id="@+id/details"
+                style="@style/TextStyle"
+                android:text="@{goods.details}"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                style="@style/TextStyle"
+                android:text="@string/price"/>
+            <TextView
+                android:id="@+id/price"
+                style="@style/TextStyle"
+                android:text="@{String.valueOf(goods.price)}"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/changeGoodsName"
+            style="@style/ButtonStyle"
+            android:text="@string/change_name_and_price"
+            android:onClick="@{()->goodsHandler.changeGoodsName()}"/>
+        <Button
+            android:id="@+id/changeGoodsDetails"
+            style="@style/ButtonStyle"
+            android:text="@string/change_details_and_price"
+            android:onClick="@{()->goodsHandler.changeGoodsDetails()}"/>
+
+    </LinearLayout>
+</layout>

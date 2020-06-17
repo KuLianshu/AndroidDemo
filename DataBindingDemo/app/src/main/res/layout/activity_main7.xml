@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="userInfo"
+            type="com.example.databindingdemo.model.User" />
+        <variable
+            name="userPresenter"
+            type="com.example.databindingdemo.Main7Activity.UserPresenter" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            style="@style/TextStyle"
+            android:onClick="@{()->userPresenter.onUserNameClick(userInfo)}"
+            android:text="@{userInfo.name}"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{userInfo.password}"/>
+
+        <EditText
+            style="@style/EditTextStyle"
+            android:afterTextChanged="@{userPresenter.afterTextChanged}"
+            android:hint="@string/user_name"/>
+
+        <EditText
+            style="@style/EditTextStyle"
+            android:afterTextChanged="@{userPresenter.afterUserPasswordChanged}"
+            android:hint="@string/password"/>
+    </LinearLayout>
+</layout>
