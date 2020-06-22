@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="image"
+            type="com.example.databindingdemo.model.Image" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"
+            android:layout_margin="10dp"
+            bind:path="@{image.path}"/>
+
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{image.path,default = xx}"/>
+        <Button
+            android:id="@+id/change"
+            style="@style/ButtonStyle"
+            android:text="改变路径"/>
+
+    </LinearLayout>
+</layout>

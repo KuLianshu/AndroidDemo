@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="java.util.Map"/>
+        <import type="java.util.Set"/>
+        <import type="android.util.SparseArray"/>
+
+        <variable
+            name="array"
+            type="String[]" />
+        <variable
+            name="list"
+            type="List&lt;String&gt;" />
+        <variable
+            name="map"
+            type="Map&lt;String,String&gt;" />
+        <variable
+            name="set"
+            type="Set&lt;String&gt;" />
+        <variable
+            name="sparse"
+            type="SparseArray&lt;String&gt;" />
+        <variable
+            name="index"
+            type="int" />
+        <variable
+            name="key"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{array[1]}"/>
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{sparse[index]}"/>
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{list[index]}"/>
+        <TextView
+            style="@style/TextStyle"
+            android:text="@{map[key]}"/>
+        <TextView
+            style="@style/TextStyle"
+            android:text='@{map["name"]}'/>
+        <TextView
+            style="@style/TextStyle"
+            android:text='@{set.contains("name")?"xxx":"xx"}'/>
+        <TextView
+            style="@style/TextStyle"
+            android:text='@{@string/format("name","zhangsan")}'/>
+    </LinearLayout>
+</layout>
