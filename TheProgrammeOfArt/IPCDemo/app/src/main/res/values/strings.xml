@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IPCDemo</string>
+    <string name="button1">BUTTON1</string>
+    <string name="button2">BUTTON2</string>
+    <string name="open_first_activity">OPEN FIRST ACTIVITY</string>
+    <string name="open_second_activity">OPEN SECOND ACTIVITY</string>
+</resources>
