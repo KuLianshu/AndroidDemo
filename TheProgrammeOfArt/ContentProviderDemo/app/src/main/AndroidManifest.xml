@@ -22,7 +22,7 @@
         <provider
             android:authorities="com.example.contentproviderdemo.provider"
             android:name=".provider.BookProvider"
-            android:permission="com.example.contentproviderdemo.PROVIDER"
+            android:permission="com.example.PROVIDER"
             android:process=":provider"/>
     </application>
 
