@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.contentproviderdemo">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,10 @@
         android:theme="@style/AppTheme"
         android:name=".application.MyApplication">
         <activity android:name=".MainActivity"/>
-        <activity android:name=".ProviderActivity" >
+
+        <activity android:name=".ProviderActivity" />
+        <activity android:name=".RemoteActivity"
+            android:process="com.example.database">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,6 +29,11 @@
             android:name=".provider.BookProvider"
             android:permission="com.example.PROVIDER"
             android:process=":provider"/>
+
+        <provider
+            android:authorities="com.example.database.provider"
+            android:name=".provider.DatabaseProvider"/>
+
     </application>
 
 </manifest>
