@@ -85,6 +85,7 @@ public class TcpClientActivity extends Activity implements View.OnClickListener 
         super.onDestroy();
         if (mClientSocket!=null){
             try {
+                //当客户端断开连接后，服务端的输入流会返回Null
                 mClientSocket.shutdownInput();
                 mClientSocket.close();
             } catch (IOException e) {

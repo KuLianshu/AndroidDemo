@@ -96,6 +96,7 @@ public class TCPServerService extends Service {
         while (!mIsServiceDestroyed){
             String str = in.readLine();
             LogUtils.i("msg form client: "+ str);
+            //当客户端断开连接后，服务端的输入流会返回Null
             if (str==null){
                 //客户端断开连接
                 break;
