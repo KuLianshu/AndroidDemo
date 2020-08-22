@@ -80,24 +80,17 @@ public class TCPServerService extends Service {
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                }finally {
-                    try {
-                        if (client!=null){
-                            client.close();
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
                 }
             }
         }
     }
 
+    private static int index = 0;
     private void responseClient(Socket client) throws IOException{
         //用于接收客户端信息
         BufferedReader in = new BufferedReader(new InputStreamReader(client.getInputStream()));
         //用于向客户端发送消息
-        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())));
+        PrintWriter out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(client.getOutputStream())),true);
 
         out.println("欢迎来到聊天室!");
         while (!mIsServiceDestroyed){
@@ -107,7 +100,10 @@ public class TCPServerService extends Service {
                 //客户端断开连接
                 break;
             }
-            int i = new Random().nextInt(mDefinedMessages.length);
+
+            int i = index%3;
+            index++;
+
             String msg = mDefinedMessages[i];
             out.println("send : "+msg);
         }
@@ -115,6 +111,7 @@ public class TCPServerService extends Service {
         //关闭流
         MyUtils.close(in);
         MyUtils.close(out);
+        client.close();
 
     }
 

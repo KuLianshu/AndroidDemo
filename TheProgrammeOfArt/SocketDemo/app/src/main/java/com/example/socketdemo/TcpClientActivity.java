@@ -74,7 +74,7 @@ public class TcpClientActivity extends Activity implements View.OnClickListener 
             @Override
             public void run() {
                 super.run();
-//                conn
+                connectTCPServer();
             }
         }.start();
 
@@ -83,14 +83,33 @@ public class TcpClientActivity extends Activity implements View.OnClickListener 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        if (mC)
+        if (mClientSocket!=null){
+            try {
+                mClientSocket.shutdownInput();
+                mClientSocket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_send_message){
-//            fileList() String msg = mMessageEditText .getText().toString();
-//            if (!TextUtils.isEmpty(msg)&&)
+            final String msg = mMessageEditText .getText().toString();
+            if (!TextUtils.isEmpty(msg)&&mPrintWriter!=null){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPrintWriter.println(msg);
+                    }
+                }).start();
+                mMessageEditText.setText("");
+                String time = formatDateTime(System.currentTimeMillis());
+                final String showMsg = "self "+ time+":"+msg+"\n";
+                String content = mMessageTextView.getText()+showMsg;
+                mMessageTextView.setText(content);
+            }
         }
     }
 
