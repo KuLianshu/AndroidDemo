@@ -17,8 +17,7 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
     private String newId;
 
     private static final String AUTHOR = "com.example.database.provider";
-    private static final String url1= "content://"+AUTHOR+"/book";
-//    private static final String url2= "content://"+AUTHOR+"/book";
+    private static final String url= "content://"+AUTHOR+"/book";
 
 
     @Override
@@ -52,12 +51,20 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void deleteData() {
-        Uri uri = Uri.parse(url1+"/"+newId);
+        //只删除 id = newId 这一条数据
+        Uri uri = Uri.parse(url+"/"+newId);
+        //删除所有数据
+//        Uri uri = Uri.parse(url);
         getContentResolver().delete(uri,null,null);
     }
 
     private void updateData() {
-        Uri uri = Uri.parse(url1+"/"+newId);
+        //只update id = newId 这一条数据
+        Uri uri = Uri.parse(url+"/"+newId);
+        //更新所有的数据
+//        Uri uri = Uri.parse(url);
+        //这里id为列名
+//        Uri uri = Uri.parse(url+"/id");
         ContentValues values = new ContentValues();
         values.put("name","A Storm of Swords");
         values.put("pages",1234);;
@@ -67,24 +74,23 @@ public class RemoteActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void queryData() {
-        Uri uri = Uri.parse(url1);
+        Uri uri = Uri.parse(url);
         Cursor cursor = getContentResolver().query(uri,null,null,null,null);
         if (cursor!=null){
-            String name = cursor.getString(cursor.getColumnIndex("name"));
-            String author = cursor.getString(cursor.getColumnIndex("author"));
-            int pages = cursor.getInt(cursor.getColumnIndex("page"));
-            double price = cursor.getDouble(cursor.getColumnIndex("price"));
-            LogUtils.i("name = "+name+", author = "+author+", page = "+pages+", price = "+price);
-
-
-
+            while(cursor.moveToNext()){
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String author = cursor.getString(cursor.getColumnIndex("author"));
+                int pages = cursor.getInt(cursor.getColumnIndex("pages"));
+                double price = cursor.getDouble(cursor.getColumnIndex("price"));
+                LogUtils.i("name = "+name+", author = "+author+", page = "+pages+", price = "+price);
+            }
             cursor.close();
         }
 
     }
 
     private void addData() {
-        Uri uri = Uri.parse(url1);
+        Uri uri = Uri.parse(url);
         ContentValues values = new ContentValues();
         values.put("name","A Clash of Kings");
         values.put("author","George Martin");
