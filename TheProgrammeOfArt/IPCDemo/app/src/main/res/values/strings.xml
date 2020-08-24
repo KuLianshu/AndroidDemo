@@ -4,4 +4,5 @@
     <string name="button2">BUTTON2</string>
     <string name="open_first_activity">OPEN FIRST ACTIVITY</string>
     <string name="open_second_activity">OPEN SECOND ACTIVITY</string>
+    <string name="this_is_messenger_activity">This is Messenger Activity</string>
 </resources>

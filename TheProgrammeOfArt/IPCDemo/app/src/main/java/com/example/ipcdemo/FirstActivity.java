@@ -7,14 +7,8 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.ipcdemo.entity.User;
-import com.example.ipcdemo.utils.IPCByFile;
-import com.example.ipcdemo.utils.MyConstants;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import com.example.ipcdemo.utils.IPCByFile;
 
 public class FirstActivity extends AppCompatActivity {
 
