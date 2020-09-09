@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ViewActionModeTest</string>
+    <string name="click">click</string>
+    <string name="start_animation">启动动画</string>
+</resources>
