@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+
+    <com.example.viewactionmodetest.view.MyViewGroup
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:orientation="vertical"
+        android:background="#8BC34A">
+
+        <com.example.viewactionmodetest.view.MyView
+            android:id="@+id/my_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#FFEB3B"/>
+
+        <com.example.viewactionmodetest.view.MyView1
+            android:id="@+id/my_view1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="#FF9800"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="50dp"/>
+    </com.example.viewactionmodetest.view.MyViewGroup>
+
+    <TextView
+        android:id="@+id/tv_activity_touch_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"/>
+
+</LinearLayout>
