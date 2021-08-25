@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DemoOfChapter5</string>
+    <string name="send_notification">send Notification</string>
+    <string name="demo_activity_1">Demo Activity 1</string>
+</resources>
