@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RemoteViews;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_send_notification).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sendNotification();
+//                sendNotification();
+                sendMyNotification();
             }
         });
     }
@@ -60,7 +62,30 @@ public class MainActivity extends AppCompatActivity {
             manager.notify(1,builder.build());
         }
 
-
-
     }
+
+    public void sendMyNotification(){
+        Intent intent = new Intent(this,DemoActivity_1.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        RemoteViews remoteViews = new RemoteViews(getPackageName(),R.layout.layout_notification);
+        remoteViews.setTextViewText(R.id.msg,"chapter_5");
+        remoteViews.setImageViewResource(R.id.icon,R.mipmap.ic_launcher_round);
+        PendingIntent openActivity2PendingIntent = PendingIntent.getActivity(this,0,
+                new Intent(this,DemoActivity_2.class),PendingIntent.FLAG_UPDATE_CURRENT);
+        remoteViews.setOnClickPendingIntent(R.id.open_activity2,openActivity2PendingIntent);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"test")
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setAutoCancel(true)
+                .setContentText("标题")
+                .setContentText("内容")
+                .setCustomContentView(remoteViews)
+                .setContentIntent(pendingIntent);
+        Notification notification = builder.build();
+        NotificationManager manager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(1,notification);
+    }
+
+
 }
