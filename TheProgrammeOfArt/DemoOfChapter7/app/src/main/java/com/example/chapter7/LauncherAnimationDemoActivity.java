@@ -27,4 +27,11 @@ public class LauncherAnimationDemoActivity extends Activity {
         });
 
     }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.anim_enter_anim,R.anim.anim_exit_anim);
+
+    }
 }

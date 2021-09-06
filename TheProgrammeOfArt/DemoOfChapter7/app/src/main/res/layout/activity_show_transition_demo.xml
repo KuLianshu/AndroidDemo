@@ -2,16 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
-
-
+    android:orientation="vertical">
     <Button
-        android:id="@+id/start_activity"
+        android:id="@+id/exit_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"
-        android:text="start activity"
+        android:background="@color/color_FF9800"
+        android:text="exit activity"
         android:layout_margin="10dp"/>
-
 </LinearLayout>

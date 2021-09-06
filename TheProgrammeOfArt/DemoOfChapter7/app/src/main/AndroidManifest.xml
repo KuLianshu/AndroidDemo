@@ -12,13 +12,25 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".LayoutAnimationDemoActivity" />
         <activity android:name=".LauncherAnimationDemoActivity" >
+
+        </activity>
+        <activity android:name=".ShowAnimationActivity" />
+        <activity android:name=".MyViewAnimationDemoActivity" >
+
+        </activity>
+        <activity android:name=".TransitionDemoActivity" >
+
+        </activity>
+        <activity android:name=".ShowTransitionDemoActivity" />
+        <activity android:name=".ShowWindowAnimationActivity"
+            android:theme="@style/AppTheme1">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowAnimationActivity" />
+        <!--        <activity android:name=".base.BaseActivity" />-->
     </application>
 
 </manifest>

@@ -4,14 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center">
-
-
     <Button
         android:id="@+id/start_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_200"
+        android:background="@color/color_FFEB3B"
         android:text="start activity"
         android:layout_margin="10dp"/>
-
 </LinearLayout>
