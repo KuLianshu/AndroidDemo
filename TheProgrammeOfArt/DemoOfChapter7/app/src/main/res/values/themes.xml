@@ -15,20 +15,35 @@
     </style>
 
     <style name="AppTheme1" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@color/themStyle</item>
-        <item name="android:layout_width">480dp</item>
-        <item name="android:windowCloseOnTouchOutside">true</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowAnimationStyle">@style/fade</item>
     </style>
 
 
+    <!--
+
+当我们从 A1 启动 A2 时，A1 从屏幕上消失，这个动画叫做 android:activityOpenExitAnimation
+
+当我们从 A1 启动 A2 时，A2 出现在屏幕上，这个动画叫做 android:activityOpenEnterAnimation
+
+当我们从 A2 退出回到 A1 时，A2 从屏幕上消失，这个叫做 android:activityCloseExitAnimation
+
+当我们从 A2 退出回到 A1 时，A1 出现在屏幕上，这个叫做 android:activityCloseEnterAnimation
+
+
+     -->
     <style name="fade" parent="@android:style/Animation.Translucent">
-        <item name="android:activityOpenEnterAnimation">@anim/right_push_in</item>
-        <item name="android:activityOpenExitAnimation">@anim/right_push_out</item>
-        <item name="android:activityCloseEnterAnimation">@anim/right_push_in</item>
-        <item name="android:activityCloseExitAnimation">@anim/right_push_out</item>
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/out_to_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/in_from_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/out_to_right</item>
     </style>
+
+<!--    <style name="fade" parent="@android:style/Animation.Translucent">-->
+<!--        <item name="android:activityOpenEnterAnimation">@anim/right_push_in</item>-->
+<!--        <item name="android:activityOpenExitAnimation">@anim/right_push_out</item>-->
+<!--        <item name="android:activityCloseEnterAnimation">@anim/right_push_in</item>-->
+<!--        <item name="android:activityCloseExitAnimation">@anim/right_push_out</item>-->
+<!--    </style>-->
 </resources>

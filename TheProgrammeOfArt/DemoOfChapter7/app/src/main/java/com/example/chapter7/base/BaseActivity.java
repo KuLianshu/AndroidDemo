@@ -10,6 +10,13 @@ import com.example.chapter7.R;
 
 public class BaseActivity extends Activity {
 
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+
+    }
+
     public void startActivity(Class clazz, Bundle bundle){
         Intent intent = new Intent();
         intent.setClass(this,clazz);
@@ -23,7 +30,7 @@ public class BaseActivity extends Activity {
         Intent intent = new Intent();
         intent.setClass(this,clazz);
         startActivity(intent);
-        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
+//        overridePendingTransition(R.anim.in_from_right, R.anim.out_to_left);
     }
 
 
@@ -36,9 +43,16 @@ public class BaseActivity extends Activity {
 
     }
 
+//    @Override
+//    public void onBackPressed() {
+//        super.onBackPressed();
+//        overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+//    }
+
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    public void finish() {
+        super.finish();
         overridePendingTransition(R.anim.in_from_left, R.anim.out_to_right);
+
     }
 }

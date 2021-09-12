@@ -24,13 +24,21 @@
         <activity android:name=".ShowTransitionDemoActivity" />
         <activity android:name=".ShowWindowAnimationActivity"
             android:theme="@style/AppTheme1">
+
+        </activity>
+        <activity android:name=".ShowPropertyAnimationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--        <activity android:name=".base.BaseActivity" />-->
+        <activity android:name=".ShowInterpolatorActivity" >
+
+        </activity>
+        <activity android:name=".ShowTypeEvaluatorActivity" >
+
+        </activity>
     </application>
 
 </manifest>
