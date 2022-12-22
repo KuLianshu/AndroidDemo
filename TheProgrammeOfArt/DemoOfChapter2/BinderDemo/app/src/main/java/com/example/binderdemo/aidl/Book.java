@@ -1,2 +1,4 @@
-package com.example.binderdemo.aidl;public class Book {
+package com.example.binderdemo.aidl;
+
+public class Book {
 }
