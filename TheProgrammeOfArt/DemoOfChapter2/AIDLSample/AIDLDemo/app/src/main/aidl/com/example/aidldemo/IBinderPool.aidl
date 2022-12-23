@@ -1,4 +1,4 @@
-// IBinderPool.aidl
+
 package com.example.aidldemo;
 
 
