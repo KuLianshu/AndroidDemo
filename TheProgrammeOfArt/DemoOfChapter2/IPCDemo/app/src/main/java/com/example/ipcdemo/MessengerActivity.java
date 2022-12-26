@@ -33,7 +33,7 @@ public class MessengerActivity extends Activity {
             msg.setData(data);
 
             //为了收到服务端传过来的数据
-            // 需要把服务端回复的Messenger通过Message的replayTo参数传递给服务器
+            // 需要把接收服务端回复的Messenger通过Message的replayTo参数传递给服务器
             msg.replyTo = mGetReplyMessenger;
             try {
                 mService.send(msg);
