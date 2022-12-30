@@ -1,4 +1,4 @@
-package com.example.binderdemo.aidl;
+package com.example.binderdemo;
 
 import android.os.Parcel;
 import android.os.Parcelable;
