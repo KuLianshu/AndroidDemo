@@ -10,17 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"/>
-        <activity android:name=".BinderPoolTestActivity" >
+        <activity android:name=".BinderPoolTestActivity" />
+        <activity android:name=".BookManagerActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <service android:name=".RemoteService"
             android:process=":remote"/>
         <service android:name=".domain.BinderPoolService"
+            android:process=":remote"/>
+        <service android:name=".BookManagerService"
             android:process=":remote"/>
     </application>
 
