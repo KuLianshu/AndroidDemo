@@ -28,6 +28,14 @@ public class BookManagerActivity extends Activity {
                 Log.i(TAG,"query book list, list type: "+list.getClass().getCanonicalName());
                 Log.i(TAG,"1，query book list: "+list.toString());
 
+                Book newBook = new Book(3,"Android开发，从入门到放弃");
+                bookManager.addBook(newBook);
+                Log.i(TAG,"add book: "+newBook.toString());
+                List<Book> newList = bookManager.getBookList();
+                Log.i(TAG,"2，query book list: "+newList.toString());
+
+
+
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
