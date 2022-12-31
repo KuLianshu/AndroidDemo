@@ -68,15 +68,10 @@ public class BookManagerActivity extends Activity {
         }
     };
 
-    private IOnNewBookArrivedListener mOnNewBookArrivedListener = new IOnNewBookArrivedListener() {
+    private IOnNewBookArrivedListener mOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
         @Override
         public void onNewBookArrived(Book newBook) throws RemoteException {
             mHandler.obtainMessage(MESSAGE_NEW_BOOK_ARRIVED,newBook).sendToTarget();
-        }
-
-        @Override
-        public IBinder asBinder() {
-            return null;
         }
     };
 
