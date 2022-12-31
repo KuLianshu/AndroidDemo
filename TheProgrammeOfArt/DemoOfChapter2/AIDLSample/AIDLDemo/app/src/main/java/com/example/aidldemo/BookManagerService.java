@@ -86,7 +86,6 @@ public class BookManagerService extends Service {
         for (int i=0; i<mListenerList.size(); i++){
             IOnNewBookArrivedListener listener = mListenerList.get(i);
             Log.d(TAG, "onNewBookArrived, notify listener:"+listener);
-            Log.d(TAG,"size:"+mListenerList.size()+", i:"+i);
             listener.onNewBookArrived(book);
         }
     }
