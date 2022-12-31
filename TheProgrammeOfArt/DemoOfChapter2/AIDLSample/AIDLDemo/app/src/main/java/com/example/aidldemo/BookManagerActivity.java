@@ -11,6 +11,9 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +40,8 @@ public class BookManagerActivity extends Activity {
             }
         }
     };
+
+    private Button button;
 
     private ServiceConnection mConnection = new ServiceConnection() {
 
@@ -71,6 +76,8 @@ public class BookManagerActivity extends Activity {
     private IOnNewBookArrivedListener mOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
         @Override
         public void onNewBookArrived(Book newBook) throws RemoteException {
+            //这里，方法是运行在客户端的Binder线程池中的，所以如果要进行UI操作，要用Handler切换线程
+            Log.i(TAG,"current thread: "+Thread.currentThread().getName());
             mHandler.obtainMessage(MESSAGE_NEW_BOOK_ARRIVED,newBook).sendToTarget();
         }
     };
@@ -82,6 +89,26 @@ public class BookManagerActivity extends Activity {
         Intent intent = new Intent(this,BookManagerService.class);
         bindService(intent,mConnection, Context.BIND_AUTO_CREATE);
 
+        button = findViewById(R.id.btn_click);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(BookManagerActivity.this,"click button",Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mRemoteBookManager!=null){
+                            try {
+                                List<Book> newList = mRemoteBookManager.getBookList();
+
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override
