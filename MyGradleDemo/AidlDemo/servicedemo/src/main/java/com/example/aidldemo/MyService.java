@@ -11,6 +11,7 @@ import android.util.Log;
 import com.example.mylibrary.Book;
 import com.example.mylibrary.IMyAidlInterface;
 import com.example.mylibrary.ISearchBooksCallback;
+import com.example.mylibrary.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 import static java.lang.Thread.sleep;
 
 public class MyService extends Service {
-    public static final String TAG = "MyService>>";
+    public static final String TAG = "MyService";
     private List<Book> books;
 
     public MyService() {
@@ -30,10 +31,10 @@ public class MyService extends Service {
         return binder;
     }
 
-    private IMyAidlInterface.Stub binder = new IMyAidlInterface.Stub() {
+    private final IMyAidlInterface.Stub binder = new IMyAidlInterface.Stub() {
         @Override
         public int borrowBook(String bookName) throws RemoteException {
-            //TODO 实现一系列 借书 的逻辑后，返回结果码，比如:0为失败，1为成功
+            //实现一系列 借书 的逻辑后，返回结果码，比如:0为失败，1为成功
             if (books == null) {
                 books = new ArrayList<>();
             }
@@ -50,7 +51,7 @@ public class MyService extends Service {
 
         @Override
         public int returnBook(String bookName) throws RemoteException {
-            //TODO 实现一系列 还书 的逻辑后，返回结果码，比如:0为失败，1为成功
+            //实现一系列 还书 的逻辑后，返回结果码，比如:0为失败，1为成功
             if (books == null) {
                 books = new ArrayList<>();
             }
@@ -60,9 +61,9 @@ public class MyService extends Service {
 
         @Override
         public int borrowOtherBook(Book book) throws RemoteException {
-            Log.d(TAG, "接收到的book：" + book.getName());
+            LogUtil.d(TAG, "接收到的book：" + book.getName());
             //给book重新赋值
-            book.setName("三体");
+            book.setName("百年孤独");
             book.setNum(1);
             return 1;
         }
@@ -88,13 +89,13 @@ public class MyService extends Service {
                 remoteCallbackList.register(callback);
                 final int len = remoteCallbackList.beginBroadcast();
                 for (int i = 0; i < len; i++) {
-                    Log.d(TAG, "准备回调了--数量：" + books.size());
+                    LogUtil.d(TAG, "准备回调了--数量：" + books.size());
                     remoteCallbackList.getBroadcastItem(i).onSuccess(books);
-                    Log.d(TAG, "回调了--数量" + books.size());
+                    LogUtil.d(TAG, "回调了--数量" + books.size());
                 }
-                Log.d(TAG, "准备结束广播-数量-" + books.size());
+                LogUtil.d(TAG, "准备结束广播-数量-" + books.size());
                 remoteCallbackList.finishBroadcast();
-                Log.d(TAG, "结束广播-数量-" + books.size());
+                LogUtil.d(TAG, "结束广播-数量-" + books.size());
             } catch (InterruptedException | RemoteException e) {
                 e.printStackTrace();
             }
