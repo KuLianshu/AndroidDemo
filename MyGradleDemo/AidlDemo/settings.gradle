@@ -1,0 +1,4 @@
+rootProject.name = "AidlDemo"
+include ':servicedemo'
+include ':mylibrary'
+include ':clientdemo'

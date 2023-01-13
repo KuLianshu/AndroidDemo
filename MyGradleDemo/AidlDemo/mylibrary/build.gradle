@@ -1,0 +1,92 @@
+plugins {
+    id 'com.android.library'
+}
+
+android {
+    compileSdkVersion 30
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation 'androidx.appcompat:appcompat:1.2.0'
+//    implementation 'com.google.android.material:material:1.2.1'
+//    testImplementation 'junit:junit:4.+'
+//    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+/**
+ * 接口版本号
+ */
+ext {
+    versionCode = '0.0.1'
+}
+
+/**
+ * @return formattedDate
+ */
+def getBuildTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
+}
+
+/**
+ *
+ * @param isRelease
+ * @param isProguard
+ * @return buildName
+ */
+def getBuildName(boolean isRelease) {
+    def buildName = "mysdk_aidl_v" + ext.versionCode
+//    + "." + getBuildTime()
+    if (!isRelease) {
+        buildName = buildName + "_debug"
+    }
+    return buildName + ".jar"
+}
+
+task makeJar(type: Copy) {
+    //删除存在的
+    delete 'build/libs/' + getBuildName(true)
+    //设置拷贝的文件
+    /**如果要用这一行导出jar，则Gradle工具版本如下
+     * classpath 'com.android.tools.build:gradle:3.5.2'
+     * gradle-5.4.1-all.zip
+     */
+//    from('build/intermediates/packaged-classes/release/')
+    /**
+     * 当前Gradle版本如下
+     * gradle:4.2.1"
+     * 所以用下面这行
+     */
+    from('build/intermediates/compile_library_classes_jar/release/')
+    //打进jar包后的文件目录
+    into('build/libs/')
+    //将classes.jar放入build/libs/目录下
+    //include ,exclude参数来设置过滤
+    //（我们只关心classes.jar这个文件）
+    include('classes.jar')
+    //重命名
+    rename('classes.jar', getBuildName(true))
+}
+makeJar.dependsOn(build)
