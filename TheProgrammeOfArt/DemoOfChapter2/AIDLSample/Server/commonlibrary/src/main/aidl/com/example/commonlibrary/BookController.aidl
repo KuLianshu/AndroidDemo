@@ -1,8 +1,8 @@
 // BookController.aidl
-package com.example.server;
+package com.example.commonlibrary;
 
-import com.example.server.Book;
-import com.example.server.IOnNewBookArrivedListener;
+import com.example.commonlibrary.Book;
+import com.example.commonlibrary.IOnNewBookArrivedListener;
 
 interface BookController {
 

@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.commonlibrary;
 
 import org.junit.Test;
 

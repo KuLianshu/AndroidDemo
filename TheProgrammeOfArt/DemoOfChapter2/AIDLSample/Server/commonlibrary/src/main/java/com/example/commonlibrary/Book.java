@@ -1,4 +1,4 @@
-package com.example.server;
+package com.example.commonlibrary;
 
 import android.os.Parcel;
 import android.os.Parcelable;

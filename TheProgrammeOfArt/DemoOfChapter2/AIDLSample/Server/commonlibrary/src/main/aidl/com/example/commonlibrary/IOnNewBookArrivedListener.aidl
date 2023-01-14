@@ -1,7 +1,7 @@
 
-package com.example.server;
+package com.example.commonlibrary;
 
-import com.example.server.Book;
+import com.example.commonlibrary.Book;
 
 interface IOnNewBookArrivedListener {
 
