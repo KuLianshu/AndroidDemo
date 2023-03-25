@@ -11,10 +11,10 @@ android {
     //配置签名文件
     signingConfigs {
         config{
-            keyAlias 'ylkey'
-            keyPassword 'android'
-            storeFile file('../keystore/ylkeystore.jks')
-            storePassword 'android'
+            keyAlias "mykey"
+            keyPassword "android"
+            storeFile file('../../../KeyStore/mykey.jks')
+            storePassword "android"
         }
     }
 
