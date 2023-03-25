@@ -1,0 +1,113 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.example.changelogo'
+    compileSdk 33
+
+
+    //配置签名文件
+    signingConfigs {
+        config{
+            keyAlias "mykey"
+            keyPassword "android"
+            storeFile file('../../../../KeyStore/mykey.jks')
+            storePassword "android"
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.example.changelogo"
+        minSdk 21
+        targetSdk 33
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        flavorDimensions "app"
+    }
+
+
+    lintOptions {
+        abortOnError false
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.config
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+            // 批量打包
+            applicationVariants.all { variant ->
+                variant.outputs.all {
+                    //输出apk名称为：渠道名.apk
+                    outputFileName = "${variant.productFlavors[0].name}.apk"//生成 apk 的名字
+                }
+            }
+
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    //项目所有flavor
+    productFlavors{
+        task1{
+            versionCode 1
+            versionName "1.0"
+            //注意，values/strings.xml文件中不能出现app_name命名的字段，否则会报错
+            //app名字
+            resValue "string", "app_name", "@string/app_name1"
+            //设置常量值，代码里通过BuildConfig.ASPECT_PORTRAIT获取
+            buildConfigField "String", "ASPECT_PORTRAIT", '"1.6"'
+            //下面两种写法都可以改变app logo
+            //app图标
+            manifestPlaceholders = [ app_icon: "@mipmap/ic_a1"]
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev1",
+//                                    app_icon           : "@drawable/ic_a1"]
+            dimension "app"
+        }
+
+        task2{
+            versionCode 1
+            versionName "1.0"
+            resValue "string", "app_name", "第二个名字"////app名字
+            buildConfigField "String", "ASPECT_PORTRAIT", '"0.625"'
+            manifestPlaceholders = [ app_icon: "@mipmap/ic_a2"]//app图标
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "dev2",
+//                                    app_icon           : "@drawable/ic_a2"]
+            dimension "app"
+        }
+
+    }
+
+
+    dexOptions {
+        preDexLibraries = false
+    }
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
