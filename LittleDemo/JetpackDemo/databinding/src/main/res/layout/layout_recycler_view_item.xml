@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="idol"
+            type="com.example.databinding.entity.NewIdol" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:itemImage="@{idol.image}"
+            android:layout_marginStart="20dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginStart="20dp">
+            <TextView
+                android:id="@+id/textViewChName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15sp"
+                android:text="@{idol.chName}"/>
+
+            <TextView
+                android:id="@+id/textViewEnName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{idol.enName}"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
