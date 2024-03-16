@@ -18,3 +18,8 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CoroutineDemo"
 include ':app'
+include ':coroutinescopeexceptiondemo'
+include ':coroutineflow'
+include ':coroutinechannel'
+include ':flowpractice'
+include ':jetpackpaging'

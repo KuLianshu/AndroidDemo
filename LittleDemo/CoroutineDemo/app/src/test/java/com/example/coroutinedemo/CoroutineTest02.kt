@@ -1,5 +1,6 @@
 package com.example.coroutinedemo
 
+import android.util.Log
 import kotlinx.coroutines.*
 import org.junit.Test
 import kotlin.system.measureTimeMillis
@@ -7,129 +8,147 @@ import kotlin.system.measureTimeMillis
 class CoroutineTest02 {
 
     @Test
-    fun `test coroutine builder`() = runBlocking {
-        val job1 = launch {
-            delay(2000)
-            println("job1 finished")
-        }
-        val job2 = async {
-            delay(2000)
-            println("job2 finished")
-            "job2 result"
-        }
-        println("===== test =======")
-        println(job2.await())
-
+    fun `test coroutine cancel`() = runBlocking<Unit> {
+        val scope = CoroutineScope(Dispatchers.Default)
+        val job1 = scope.launch {
+                delay(1000)
+                println("job 1")
+            }
+        val job2 = scope.launch {
+                delay(1000)
+                println("job 2")
+            }
+        //父协程并不会等待子协程job1、job2执行
+        //因为这里子协程有自己的协程作用域
+        //所以必须在父协程里手动加delay，才能看到子协程打印
+        delay(100)
+//        scope.cancel()
+        delay(2000)
     }
 
-    /*
-     *  join 和 await 是挂起函数，不阻塞主线程
-     */
 
     @Test
-    fun `test coroutine join`() = runBlocking {
-        val job1 = launch {
-            delay(2000)
-            println("One")
+    fun `test brother cancel`() = runBlocking<Unit> {
+        val scope = CoroutineScope(Dispatchers.Default)
+        val job1 = scope.launch {
+            delay(1000)
+            println("job 1")
         }
-        //等job1执行完后，再执行job2、job3
+        val job2 = scope.launch {
+            delay(1000)
+            println("job 2")
+        }
+        delay(100)
+        //被取消的子协程并不会影响其余兄弟协程，所以job2会正常打印
+//        job1.cancel()
+        delay(1000)
+    }
+
+    @Test
+    fun `test CancellationException`() = runBlocking<Unit> {
+        val job1 = GlobalScope.launch {
+            try{
+                delay(1000)
+                println("job 1")
+            }catch (e: Exception){
+//                e.printStackTrace()
+                println("e: "+e.message)
+            }
+        }
+        delay(100)
+        //异常会网上抛给父类，也可以手动try_catch
+//        job1.cancel(CancellationException("取消"))
+        //cancel参数可带可不带
+//        job1.cancel()
+        //这里job1有自己的协程作用域
+        //所以父协程并不会等待job1执行
+        //要想看到job打印，这里必须手动加入join()
+        //让父协程等待job1执行
+        //当然job1被执行的前提是，没有被cancel掉
         job1.join()
-        val job2 = launch {
-            delay(200)
-            println("Two")
-        }
-        val job3 = launch {
-            delay(200)
-            println("Three")
-        }
+
     }
+
+//    @Test
+//    fun `test cancel cpu task by isActive`() = runBlocking<Unit> {
+//        val startTime = System.currentTimeMillis()
+//        val job = launch(Dispatchers.Default) {
+//            var nextPrintTime = startTime
+//            var i = 0
+//            while (i < 5 && isActive ){
+////                val current =  System.currentTimeMillis()
+////                if (current >= nextPrintTime){
+////                    Log.i("WLY","$current, $nextPrintTime")
+//                if (System.currentTimeMillis()>=nextPrintTime){
+////                    val current =  System.currentTimeMillis()
+////                    Log.i("WLY","$current, $nextPrintTime")
+//                    println("job: I'm sleeping ${i++} ...")
+//                    nextPrintTime += 500
+//                }
+//            }
+//        }
+//        println("main: I'm tired of waiting!")
+//        delay(1300)
+//        job.cancelAndJoin()
+//        println("main: Now I can quit.")
+//    }
 
     @Test
-    fun `test coroutine await`() = runBlocking {
-        val job1 = async {
-            delay(2000)
-            println("One")
-        }
-        //等job1执行完后，再执行job2、job3
-        job1.await()
-        val job2 = async {
-            delay(200)
-            println("Two")
-        }
-        val job3 = async {
-            delay(200)
-            println("Three")
-        }
-    }
-
-    @Test
-    fun `test sync`() = runBlocking {
-
-        val time = measureTimeMillis {
-            val one = doOne()
-            val two = doTwo()
-            println("The result: ${one+two}")
-        }
-        println("Completed in $time ms")
-    }
-
-    @Test
-    fun `test combine sync`() = runBlocking {
-        val time = measureTimeMillis {
-            val one = async { doOne() }
-            val two = async { doTwo() }
-            println("The result: ${one.await()+two.await()}")
-
-//            /*不能这样写，耗时又变成2000ms了*/
-//            val one = async { doOne() }.await()
-//            val two = async { doTwo() }.await()
-//            println("The result: ${one+two}")
-        }
-        println("Completed in $time ms")
-    }
-
-    private suspend fun doOne(): Int{
-        delay(1000)
-        println("doOne working")
-        return 14
-    }
-
-    private suspend fun doTwo(): Int{
-        delay(1000)
-        println("doTwo working")
-        return 25
-    }
-
-    @Test
-    fun `test coroutine scope sync`() = runBlocking {
-        coroutineScope {
-            val job1 = launch {
-                delay(400)
-                println("job1 finished")
-            }
-            val job2 = async {
-                delay(200)
-                println("job2 finished")
-                throw java.lang.IllegalArgumentException()
+    fun `test cancel cpu task by isActive`() = runBlocking<Unit> {
+        val startTime = System.currentTimeMillis()
+        val job = launch(Dispatchers.Default) {
+            var nextPrintTime = startTime
+            var i = 0
+            while (i < 5 &&isActive){
+                if (System.currentTimeMillis() >= nextPrintTime){
+                    println("job: I'm sleeping ${i++} ... ${System.currentTimeMillis()- nextPrintTime}")
+                    nextPrintTime += 500
+                }
             }
         }
-
+        println("main: I'm tired of waiting!")
+        delay(1300)
+        job.cancelAndJoin()
+        println("main: Now I can quit. ${System.currentTimeMillis()-startTime}")
     }
 
     @Test
-    fun `test supervisor scope sync`() = runBlocking {
-        supervisorScope {
-            val job1 = launch {
-                delay(400)
-                println("job1 finished")
-            }
-            val job2 = async {
-                delay(200)
-                println("job2 finished")
-                throw java.lang.IllegalArgumentException()
+    fun `test cancel cpu task by ensureActive`() = runBlocking<Unit> {
+        val startTime = System.currentTimeMillis()
+        val job = launch(Dispatchers.Default) {
+            var nextPrintTime = startTime
+            var i = 0
+            while (i < 5 ){
+                ensureActive()
+                if (System.currentTimeMillis() >= nextPrintTime){
+                    println("job: I'm sleeping ${i++} ... ${System.currentTimeMillis()- nextPrintTime}")
+                    nextPrintTime += 500
+                }
             }
         }
-
+        println("main: I'm tired of waiting!")
+        delay(1300)
+        job.cancelAndJoin()
+        println("main: Now I can quit. ${System.currentTimeMillis()-startTime}")
     }
 
+    @Test
+    fun `test cancel cpu task by yield`() = runBlocking<Unit> {
+        val startTime = System.currentTimeMillis()
+        val job = launch(Dispatchers.Default) {
+            var nextPrintTime = startTime
+            var i = 0
+            while (i < 5 ){
+                yield()
+                if (System.currentTimeMillis() >= nextPrintTime){
+                    println("job: I'm sleeping ${i++} ... ${System.currentTimeMillis()- nextPrintTime}")
+                    nextPrintTime += 500
+                }
+            }
+        }
+        println("main: I'm tired of waiting!")
+        delay(1300)
+        job.cancelAndJoin()
+        println("main: Now I can quit. ${System.currentTimeMillis()-startTime}")
+    }
 }

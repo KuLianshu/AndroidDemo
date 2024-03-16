@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DOCUMENT>
+    <item>
+        <device_type_id>hhh</device_type_id>
+        <brand_id>ddd</brand_id>
+        <remote_id>yyy</remote_id>
+        <rank>ttt</rank>
+    </item>
+    <item>
+        <device_type_id>hhh</device_type_id>
+        <brand_id>ddd</brand_id>
+        <remote_id>yyy</remote_id>
+        <rank>ttt</rank>
+    </item>
+</DOCUMENT>

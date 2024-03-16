@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <nics>
+        <nic href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9" id="eced63e1-4769-4132-bf9b-171273e32af9">
+            <actions>
+                <link href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9/activate" rel="activate"/>
+                <link href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9/deactivate" rel="deactivate"/>
+            </actions>
+            <name>nic1</name>
+            <link href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9/reporteddevices" rel="reporteddevices"/>
+            <link href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9/networkfilterparameters" rel="networkfilterparameters"/>
+            <link href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/nics/eced63e1-4769-4132-bf9b-171273e32af9/statistics" rel="statistics"/>
+            <vm href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca" id="95f66b8c-4f23-4a02-ac2c-e28631828bca"/>
+            <interface>virtio</interface>
+            <linked>true</linked>
+            <mac>
+                <address>00:1a:4a:16:01:02</address>
+            </mac>
+            <plugged>true</plugged>
+            <reported_devices>
+                <reported_device href="/epivir-engine/api/vms/95f66b8c-4f23-4a02-ac2c-e28631828bca/reporteddevices/52656420-4861-7420-5669-7274494f2045" id="52656420-4861-7420-5669-7274494f2045">
+                    <name>Red Hat VirtIO Ethernet Adapter</name>
+                    <description>guest reported data</description>
+                    <ips>
+                        <ip>
+                            <address>10.0.0.56</address>
+                            <version>v4</version>
+                        </ip>
+                        <ip>
+                            <address>fe80::fd4f:ebf4:b9ae:6065</address>
+                            <version>v6</version>
+                        </ip>
+                    </ips>
+                    <mac>
+                        <address>00:1a:4a:16:01:02</address>
+                    </mac>
+                    <type>network</type>
+                </reported_device>
+            </reported_devices>
+            <vnic_profile href="/epivir-engine/api/vnicprofiles/0d6cd653-0d1d-4ad7-b684-a9a5e6c4d240" id="0d6cd653-0d1d-4ad7-b684-a9a5e6c4d240"/>
+        </nic>
+    </nics>

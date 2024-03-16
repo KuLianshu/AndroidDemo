@@ -11,6 +11,11 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/coroutinechannel" />
+            <option value="$PROJECT_DIR$/coroutineflow" />
+            <option value="$PROJECT_DIR$/coroutinescopeexceptiondemo" />
+            <option value="$PROJECT_DIR$/flowpractice" />
+            <option value="$PROJECT_DIR$/jetpackpaging" />
           </set>
         </option>
       </GradleProjectSettings>
