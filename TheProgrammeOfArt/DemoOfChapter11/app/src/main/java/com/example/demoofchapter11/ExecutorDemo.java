@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 public class ExecutorDemo {
 
     //加载图片
-    public void test0(){
+    public void test0() {
         // 创建一个固定大小的线程池，线程数量为 CPU 核心数
         ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         // 异步加载图片
@@ -24,7 +24,7 @@ public class ExecutorDemo {
     }
 
     //处理数据库操作
-    public void test1(){
+    public void test1() {
         // 创建一个单线程的线程池
         ExecutorService executor = Executors.newSingleThreadExecutor();
         // 异步处理数据库操作
@@ -35,7 +35,7 @@ public class ExecutorDemo {
     }
 
     //处理网络请求
-    public void test2(){
+    public void test2() {
         // 创建一个固定大小的线程池，线程数量为 3
         ExecutorService executor = Executors.newFixedThreadPool(3);
         // 异步处理网络请求
@@ -46,7 +46,7 @@ public class ExecutorDemo {
     }
 
     //处理后台任务
-    public void test3(){
+    public void test3() {
         // 创建一个固定大小的线程池，线程数量为 5
         ExecutorService executor = Executors.newFixedThreadPool(5);
         // 异步处理后台任务
@@ -56,7 +56,7 @@ public class ExecutorDemo {
         });
     }
 
-    public  void test4() {
+    public void test4() {
         //创建一个可重用固定线程数的线程池
         ExecutorService pool = Executors.newFixedThreadPool(2);
         //创建实现了Runnable接口对象
@@ -81,5 +81,6 @@ public class ExecutorDemo {
             System.out.println(Thread.currentThread().getName() + " is running.");
         }
     }
+
 
 }

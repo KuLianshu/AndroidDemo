@@ -9,13 +9,13 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.demoofchapter11.databinding.ActivityThreadPoolBinding
+import com.example.demoofchapter11.databinding.ActivityThreadPoolDemoBinding
 import java.lang.ref.WeakReference
 import java.util.concurrent.*
 
 class ThreadPoolDemoActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityThreadPoolBinding
+    private lateinit var binding : ActivityThreadPoolDemoBinding
     private lateinit var threadPool: ExecutorService
     private  var scheduledPool: ScheduledExecutorService
     private var future1: Future<Int>? = null
@@ -43,7 +43,7 @@ class ThreadPoolDemoActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_thread_pool)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_thread_pool_demo)
         initView()
         initEvent()
     }
