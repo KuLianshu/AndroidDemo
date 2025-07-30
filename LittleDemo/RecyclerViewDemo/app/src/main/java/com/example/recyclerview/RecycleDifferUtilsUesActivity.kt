@@ -18,12 +18,13 @@ import com.example.recyclerview.utils.randomColor
 
 /**
  * 使用 DiffUtil.Callback 进行局部刷新数据
- * 注意，ListAdapter中用到DiffUtil.ItemCallback，和DiffUtil.Callback是不一样的类
+ * 注意，ListAdapter中用到DiffUtil.ItemCallback，
+ * 和 DiffUtil.Callback是不一样的类
  * 别粗心搞错了
  */
 class RecycleDifferUtilsUesActivity : AppCompatActivity() {
 
-    private var datas = mutableListOf(
+    private var data = mutableListOf(
         Name("数据1"),
         Name("数据2"),
         Name("数据3"),
@@ -42,7 +43,7 @@ class RecycleDifferUtilsUesActivity : AppCompatActivity() {
 
         binding.recycle.let {
             it.layoutManager = LinearLayoutManager(this)
-            it.adapter = TAdapter(datas){name->
+            it.adapter = TAdapter(data){name->
                 Toast.makeText(this@RecycleDifferUtilsUesActivity,name.name,Toast.LENGTH_SHORT).show()
             }.apply {
                 adapter = this
@@ -75,7 +76,6 @@ class RecycleDifferUtilsUesActivity : AppCompatActivity() {
                         new[index] = new[index+1]
                         new[index+1] = buffer
                     }
-
                     val diffResult = DiffUtil.calculateDiff(DifferCallback(old, new))
                     diffResult.dispatchUpdatesTo(it)
                 }
@@ -83,22 +83,19 @@ class RecycleDifferUtilsUesActivity : AppCompatActivity() {
         }
     }
 
-
-    /**
-     * @param callback 回调数据中第一个参数是老数据，第二个是新数据
-     */
-    class TAdapter(var adapterDatas: MutableList<Name>) :
+    class TAdapter(var adapterdata: MutableList<Name>) :
         RecyclerView.Adapter<TAdapter.RecycleDemoHolder>() {
         private lateinit var onItemClickListener: (Name)->Unit
-        constructor(adapterDatas: MutableList<Name>,
-                    onItemClickListener: (Name)->Unit):this(adapterDatas){
+        constructor(adapterData: MutableList<Name>,
+                    onItemClickListener: (Name)->Unit):this(adapterData){
                         this.onItemClickListener = onItemClickListener
                     }
 
         fun submit(callback: (MutableList<Name>, MutableList<Name>) -> Unit) {
-            val newData = adapterDatas.toMutableList()
-            callback(adapterDatas, newData)
-            adapterDatas = newData//这里一定要更改adapter中的数据列表，否则内容是不会变的
+            val newData = adapterdata.toMutableList()
+            callback(adapterdata, newData)
+            //这里一定要更改adapter中的数据列表，否则内容是不会变的
+            adapterdata = newData
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecycleDemoHolder {
@@ -112,14 +109,15 @@ class RecycleDifferUtilsUesActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RecycleDemoHolder, position: Int) {
-            holder.bind(position, adapterDatas[position], onItemClickListener)
+            holder.bind(position, adapterdata[position], onItemClickListener)
         }
 
         override fun getItemCount(): Int {
-            return adapterDatas.size
+            return adapterdata.size
         }
 
-        class RecycleDemoHolder(private val binding: ItemTextBinding) : ViewHolder(binding.root) {
+        class RecycleDemoHolder(private val binding: ItemTextBinding)
+            : ViewHolder(binding.root) {
             fun bind(position: Int, data: Name, onItemClickListener: (Name)->Unit) {
                 val content = "$position  ${data.name}"
                 binding.tv.text = content
@@ -132,22 +130,19 @@ class RecycleDifferUtilsUesActivity : AppCompatActivity() {
 
     }
 
-    class DifferCallback(val oldDatas: List<Name>, val newDatas: List<Name>) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldDatas.size
+    class DifferCallback(private val oldData: List<Name>, private val newData: List<Name>)
+        : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldData.size
 
-        override fun getNewListSize(): Int = newDatas.size
+        override fun getNewListSize(): Int = newData.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return (oldDatas[oldItemPosition].name == newDatas[newItemPosition].name)
+            return oldData[oldItemPosition].name == newData[newItemPosition].name
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return areItemsTheSame(oldItemPosition, newItemPosition)
+            return oldData[oldItemPosition] == newData[newItemPosition]
         }
-
-//    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-//        return super.getChangePayload(oldItemPosition, newItemPosition)
-//    }
 
     }
 }

@@ -14,20 +14,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginTop="10dp">
             <Button
                 android:id="@+id/btn_refresh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Refresh"
-                android:layout_marginStart="10dp"/>
+                android:text="Refresh"/>
             <Button
                 android:id="@+id/btn_change_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Change Data"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="5dp"/>
+
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

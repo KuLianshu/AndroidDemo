@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -15,45 +16,38 @@ import com.example.recyclerview.entity.Name
 import com.example.recyclerview.utils.randomColor
 
 /**
- * 使用 ListAdapter 进行局部刷新数据
- * 注意，ListAdapter中用到DiffUtil.ItemCallback，和DiffUtil.Callback是不一样的类
+ * 使用 DiffUtil.ItemCallback<T> 进行局部刷新数据
+ * 注意，ListAdapter中用到 DiffUtil.ItemCallback，
+ * 和 DiffUtil.Callback是不一样的类
  * 别粗心搞错了
  */
 class RecycleViewListAdapterActivity: AppCompatActivity() {
 
-    var datas = mutableListOf(
+    var data = mutableListOf(
         Name("数据1"),
         Name("数据2"),
-        Name("数据3"),
         Name("数据4"),
+        Name("数据3"),
         Name("数据5"),
         Name("数据6"),
-        Name("数据7")
-    )
-//    companion object{
-//        private val random = (100..200)
-//        fun randomColor() = random.random()
-//    }
+        Name("数据7"))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityRecyclerViewListAdapterBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        val binding = DataBindingUtil.setContentView<ActivityRecyclerViewListAdapterBinding>(this,R.layout.activity_recycler_view_list_adapter)
         val adapter = CustomListAdapter()
+
         binding.btnShuffle.setOnClickListener {
-            val newData = datas.toMutableList().apply {
-                //洗牌
-                shuffle()
-            }
-            datas = newData
+            val newData = data.shuffled().toMutableList()
+            data = newData
             adapter.submitList(newData)
         }
 
         binding.btnChangeData.setOnClickListener {
-            val r = (0 until datas.size)
+            val r = (0 until data.size)
             val index = r.random()
-            val newDataList = datas.toMutableList().apply {
+            //创建新的list
+            val newDataList = data.toMutableList().apply {
                 //每次更换相邻的两组数据
                 val buffer = this[index]
                 if (index+1==this.size){
@@ -64,19 +58,15 @@ class RecycleViewListAdapterActivity: AppCompatActivity() {
                     this[index+1] = buffer
                 }
             }
-            newDataList[0] = Name("新数据")
-            datas = newDataList
-            adapter.submitList(datas)
-
+            data = newDataList
+            adapter.submitList(data)
         }
 
         binding.recycle.let {
             it.layoutManager = LinearLayoutManager(this)
             it.adapter = adapter
         }
-
-        adapter.submitList(datas)
-
+        adapter.submitList(data)
     }
 
     class CustomListAdapter: ListAdapter<Name, CustomListAdapter.CustomListHolder>(CustomDiffCallback) {
@@ -87,8 +77,11 @@ class RecycleViewListAdapterActivity: AppCompatActivity() {
                 }
 
                 override fun areContentsTheSame(oldItem: Name, newItem: Name): Boolean {
+                    //Kotlin == 比较的是类对象的内容，而不是地址
                     return oldItem == newItem
                 }
+
+
             }
         }
 
